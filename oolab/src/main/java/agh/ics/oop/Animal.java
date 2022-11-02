@@ -1,30 +1,49 @@
 package agh.ics.oop;
 
-public class Animal {
+public class Animal{
     private Vector2d pos = new Vector2d(2,2);
     private MapDirection or = MapDirection.NORTH;
-
-    public String toString(){
-        return(pos.toString()+" "+or.toString());
+    RectangularMap map;
+    public Animal(RectangularMap map, Vector2d initialPosition){
+        this.map=map;
+        this.pos=initialPosition;
     }
-    boolean isAt(Vector2d position){
-        return (pos.equals(position));
+
+    public Vector2d getPosition() {
+        return this.pos;
+    }
+
+    public MapDirection getOriented() {
+        return this.or;
+    }
+    public String toString(){
+        String s = switch(this.or){
+            case NORTH -> "N";
+            case EAST -> "E";
+            case SOUTH -> "S";
+            case WEST -> "W";
+        };
+        return s;
+    }
+    public boolean isAt(Vector2d position){
+        return (this.pos.equals(position));
     }
     void move(MoveDirection direction){
-        or = switch (direction){
-            case RIGHT -> or.next();
-            case LEFT -> or.previous();
-            default -> or;
+        this.or = switch (direction){
+            case RIGHT -> this.or.next();
+            case LEFT -> this.or.previous();
+            default -> this.or;
         };
-        Vector2d ppos= new Vector2d(pos.x, pos.y);
-        pos = switch(direction){
-            case FORWARD -> pos.add(or.toUnitVector());
-            case BACKWARD -> pos.add(or.next().next().toUnitVector());
-            default -> pos;
+        Vector2d ppos= new Vector2d(this.pos.x, this.pos.y);
+        ppos = switch(direction){
+            case FORWARD -> ppos.add(this.or.toUnitVector());
+            case BACKWARD -> ppos.add(this.or.next().next().toUnitVector());
+            default -> ppos;
         };
-        Vector2d upper = new Vector2d(4,4);
-        Vector2d lower = new Vector2d(0,0);
-        if (!pos.upperRight(upper).equals(upper)) pos=ppos;
-        if (!pos.lowerLeft(lower).equals(lower)) pos=ppos;
+        if (map.canMoveTo(ppos)){
+            if (!map.isOccupied(ppos)){
+                this.pos=ppos;
+            }
+        }
     }
 }

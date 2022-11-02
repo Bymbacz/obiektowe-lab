@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="agh.ics.oop.AnimalTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-10-26T12:20:56" hostname="DESKTOP-BL92SLF" time="0.043">
-  <properties/>
-  <testcase name="isAtTest()" classname="agh.ics.oop.AnimalTest" time="0.028"/>
-  <testcase name="toStringTest()" classname="agh.ics.oop.AnimalTest" time="0.015"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
