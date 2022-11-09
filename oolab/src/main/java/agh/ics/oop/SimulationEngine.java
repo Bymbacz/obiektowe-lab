@@ -6,10 +6,10 @@ import static java.lang.System.out;
 
 public class SimulationEngine implements IEngine{
     public MoveDirection[] directions;
-    public RectangularMap map;
+    public GrassField map;
     public Vector2d[] positions;
     public int numOfAnimals = 0;
-    public SimulationEngine(MoveDirection[] directions, RectangularMap map, Vector2d[] positions){
+    public SimulationEngine(MoveDirection[] directions, GrassField map, Vector2d[] positions){
         this.directions=directions;
         this.map=map;
         this.positions=positions;
@@ -18,10 +18,10 @@ public class SimulationEngine implements IEngine{
         }
     }
     public void run(){
-        //out.println(map.toString());
+        out.println(map.toString());
         for(int i=0; i<this.directions.length; i++){
             this.map.animals.get(i%numOfAnimals).move(this.directions[i]);
-            //out.println(map.toString());
+            out.println(map.toString());
         }
     }
 }

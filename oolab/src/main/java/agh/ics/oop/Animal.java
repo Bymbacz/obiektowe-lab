@@ -3,8 +3,11 @@ package agh.ics.oop;
 public class Animal{
     private Vector2d pos = new Vector2d(2,2);
     private MapDirection or = MapDirection.NORTH;
-    RectangularMap map;
-    public Animal(RectangularMap map, Vector2d initialPosition){
+    IWorldMap map;
+    public Animal(IWorldMap map){
+        this.map=map;
+    }
+    public Animal(IWorldMap map, Vector2d initialPosition){
         this.map=map;
         this.pos=initialPosition;
     }
@@ -41,7 +44,7 @@ public class Animal{
             default -> ppos;
         };
         if (map.canMoveTo(ppos)){
-            if (!map.isOccupied(ppos)){
+            if (!map.isOccupied(ppos) || map.objectAt(ppos).toString().equals("*")){
                 this.pos=ppos;
             }
         }
