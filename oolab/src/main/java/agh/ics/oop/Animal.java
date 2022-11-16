@@ -1,5 +1,8 @@
 package agh.ics.oop;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Animal{
     private Vector2d pos = new Vector2d(2,2);
     private MapDirection or = MapDirection.NORTH;
@@ -43,10 +46,22 @@ public class Animal{
             case BACKWARD -> ppos.add(this.or.next().next().toUnitVector());
             default -> ppos;
         };
+        Vector2d oldpos=new Vector2d(pos.x, pos.y);
         if (map.canMoveTo(ppos)){
             if (!map.isOccupied(ppos) || map.objectAt(ppos).toString().equals("*")){
                 this.pos=ppos;
             }
         }
+        positionChanged(oldpos,pos);
+    }
+    private final List<IPositionChangeObserver> observers = new ArrayList<>();
+    public void addObserver(IPositionChangeObserver observer){
+        observers.add(observer);
+    }
+    public void removeObserver(IPositionChangeObserver observer){
+        observers.remove(observer);
+    }
+    public void positionChanged(Vector2d oldPos, Vector2d newPos){
+        observers.forEach(observer -> observer.positionChanged(oldPos,newPos));
     }
 }

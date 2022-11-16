@@ -2,6 +2,7 @@ package agh.ics.oop;
 
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import static java.lang.System.out;
 
@@ -48,6 +49,14 @@ public class GrassField extends AbstractWorldMap{
         return false;
     }
 
+    public boolean place(Animal animal){
+        if (super.place(animal)) return true;
+        if ((!isOccupied(animal.getPosition()) || objectAt(animal.getPosition()).toString().equals("*")) && canMoveTo(animal.getPosition())) {
+            this.animals.put(animal.getPosition(), animal);
+            return true;
+        }
+        return false;
+    }
     public Object objectAt(Vector2d position) {
         Object object = super.objectAt(position);
         if(object!=null) return object;
@@ -59,16 +68,16 @@ public class GrassField extends AbstractWorldMap{
     @Override
     public Vector2d getll(){
         Vector2d ll = new Vector2d(min_x,min_y);
-        for (Animal animal: this.animals){
-            ll=ll.lowerLeft(animal.getPosition());
+        for (Vector2d key : animals.keySet()) {
+            ll=ll.lowerLeft(key);
         }
         return ll;
     }
     @Override
     public Vector2d getur(){
         Vector2d ur = new Vector2d(max_x,max_y);
-        for (Animal animal: this.animals){
-            ur=ur.upperRight(animal.getPosition());
+        for (Vector2d key : animals.keySet()) {
+            ur=ur.upperRight(key);
         }
         return ur;
     }

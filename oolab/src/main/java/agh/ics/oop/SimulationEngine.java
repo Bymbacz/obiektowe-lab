@@ -1,6 +1,7 @@
 package agh.ics.oop;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static java.lang.System.out;
 
@@ -20,7 +21,7 @@ public class SimulationEngine implements IEngine{
     public void run(){
         out.println(map.toString());
         for(int i=0; i<this.directions.length; i++){
-            this.map.animals.get(i%numOfAnimals).move(this.directions[i]);
+            this.map.animalList.get(i%numOfAnimals).move(this.directions[i]);
             out.println(map.toString());
         }
     }
