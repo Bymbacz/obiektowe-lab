@@ -22,6 +22,7 @@ abstract public class AbstractWorldMap implements IWorldMap,IPositionChangeObser
     }
     public abstract Vector2d getll();
     public abstract Vector2d getur();
+
     public String toString(){
         Vector2d ll = getll();
         Vector2d ur = getur();

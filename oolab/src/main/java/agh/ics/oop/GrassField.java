@@ -13,6 +13,7 @@ public class GrassField extends AbstractWorldMap{
     public int max_y =0;
     public int min_y =Integer.MAX_VALUE;
     public ArrayList<Grass> field = new ArrayList<>();
+    public MapBoundary mapB = new MapBoundary();
     public GrassField (int NumOfGrass){
         this.ngrass=NumOfGrass;
         int i = 0;
@@ -30,6 +31,7 @@ public class GrassField extends AbstractWorldMap{
             if (objectAt(pos) == null){
                 Grass grass=new Grass(pos);
                 field.add(grass);
+                mapB.add(grass);
                 i+=1;
             };
         }
@@ -50,12 +52,17 @@ public class GrassField extends AbstractWorldMap{
     }
 
     public boolean place(Animal animal){
-        if (super.place(animal)) return true;
-        if ((!isOccupied(animal.getPosition()) || objectAt(animal.getPosition()).toString().equals("*")) && canMoveTo(animal.getPosition())) {
-            this.animals.put(animal.getPosition(), animal);
+        if (super.place(animal)) {
+            mapB.add(animal);
             return true;
         }
-        return false;
+        if ((!isOccupied(animal.getPosition()) || objectAt(animal.getPosition()).toString().equals("*")) && canMoveTo(animal.getPosition())) {
+            this.animals.put(animal.getPosition(), animal);
+            this.animalList.add(animal);
+            mapB.add(animal);
+            return true;
+        }
+        throw new IllegalArgumentException(animal.getPosition().toString() + " is incorrect");
     }
     public Object objectAt(Vector2d position) {
         Object object = super.objectAt(position);
@@ -67,18 +74,10 @@ public class GrassField extends AbstractWorldMap{
     }
     @Override
     public Vector2d getll(){
-        Vector2d ll = new Vector2d(min_x,min_y);
-        for (Vector2d key : animals.keySet()) {
-            ll=ll.lowerLeft(key);
-        }
-        return ll;
+        return (new Vector2d(mapB.MyX.first().getPosition().x,mapB.MyY.first().getPosition().y));
     }
     @Override
     public Vector2d getur(){
-        Vector2d ur = new Vector2d(max_x,max_y);
-        for (Vector2d key : animals.keySet()) {
-            ur=ur.upperRight(key);
-        }
-        return ur;
+        return (new Vector2d(mapB.MyX.last().getPosition().x,mapB.MyY.last().getPosition().y));
     }
 }

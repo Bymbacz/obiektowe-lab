@@ -3,7 +3,7 @@ package agh.ics.oop;
 import static java.lang.System.out;
 
 public class OptionsParser {
-    MoveDirection[] parse(String[] s){
+    public MoveDirection[] parse(String[] s){
         MoveDirection[] tablica = new MoveDirection[s.length];
         int i=0;
         for(String arg: s){
@@ -32,6 +32,8 @@ public class OptionsParser {
                 case "left":
                     tablica[i++]=MoveDirection.LEFT;
                     break;
+                default:
+                    throw new IllegalArgumentException(arg + " is not legal move specification");
             }
         }
         if (i< tablica.length){

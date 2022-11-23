@@ -3,8 +3,10 @@ package agh.ics.oop;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import static java.lang.System.out;
+
 public class OptionsParserTest {
-    String[] t = {"f","forward","b","backward","r","right","l","left","rl","lr"};
+    String[] t = {"f","forward","b","backward","r","right","l","left"};
     OptionsParser t2 = new OptionsParser();
     MoveDirection[] tab = t2.parse(t);
     @Test
@@ -29,7 +31,11 @@ public class OptionsParserTest {
     }
     @Test
     public void defaultTest(){
-        Assertions.assertNotEquals(t.length,tab.length,"not working");
-        Assertions.assertEquals(t.length-2,tab.length,"not working");
+        IllegalArgumentException thrown = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            String[] t3 = {"lol"};
+            OptionsParser t4 = new OptionsParser();
+            MoveDirection[] tab2 = t4.parse(t3);
+        });
+        Assertions.assertEquals("lol is not legal move specification",thrown.getMessage(), "not working");
     }
 }

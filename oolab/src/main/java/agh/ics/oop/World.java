@@ -1,16 +1,19 @@
 package agh.ics.oop;
-import java.util.ArrayList;
+
+import agh.isc.oop.gui.App;
+import javafx.application.Application;
 
 import static java.lang.System.out;
 
 public class World {
     public static void main(String[] args) {
-        String[] s = {"f","b","r","l","f","f","r","r","f","f","f","f","f","f","f","f"};
-        MoveDirection[] directions = new OptionsParser().parse(s);
-        GrassField map = new GrassField(10);
-        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
-        IEngine engine = new SimulationEngine(directions, map, positions);
-        engine.run();
+        try {
+            String[] s = {"f","b","r","l","f","f","r","r","f","f","f","f","f","f","f","f"};
+            Application.launch(App.class, s);
+        } catch(IllegalArgumentException ex) {
+            out.println(ex.getMessage());
+        }
+
     }
 
 

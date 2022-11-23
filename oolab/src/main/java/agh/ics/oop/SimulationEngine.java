@@ -15,13 +15,15 @@ public class SimulationEngine implements IEngine{
         this.map=map;
         this.positions=positions;
         for(int i=0; i<positions.length; i++){
-            if(this.map.place(new Animal(this.map,this.positions[i]))) this.numOfAnimals+=1;
+            if(this.map.place(new Animal(this.map,this.positions[i]))) numOfAnimals+=1;
         }
     }
     public void run(){
         out.println(map.toString());
         for(int i=0; i<this.directions.length; i++){
+            Vector2d oldpos =this.map.animalList.get(i%numOfAnimals).getPosition();
             this.map.animalList.get(i%numOfAnimals).move(this.directions[i]);
+            this.map.mapB.positionChanged(oldpos,this.map.animalList.get(i%numOfAnimals).getPosition());
             out.println(map.toString());
         }
     }
