@@ -60,12 +60,13 @@ public class GrassField extends AbstractWorldMap{
             this.animals.put(animal.getPosition(), animal);
             this.animalList.add(animal);
             mapB.add(animal);
+            animal.addObserver(this);
             return true;
         }
         throw new IllegalArgumentException(animal.getPosition().toString() + " is incorrect");
     }
-    public Object objectAt(Vector2d position) {
-        Object object = super.objectAt(position);
+    public IMapElement objectAt(Vector2d position) {
+        IMapElement object = super.objectAt(position);
         if(object!=null) return object;
         for(Grass grass: this.field){
             if(grass.getPosition().equals(position)) return grass;

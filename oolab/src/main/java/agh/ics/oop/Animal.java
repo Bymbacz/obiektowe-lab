@@ -64,4 +64,14 @@ public class Animal implements IMapElement{
     public void positionChanged(Vector2d oldPos, Vector2d newPos){
         observers.forEach(observer -> observer.positionChanged(oldPos,newPos));
     }
+
+    @Override
+    public String resourceName() {
+        return switch (this.or){
+            case NORTH -> "src/main/resources/up.png";
+            case SOUTH -> "src/main/resources/down.png";
+            case EAST -> "src/main/resources/right.png";
+            case WEST -> "src/main/resources/left.png";
+        };
+    }
 }

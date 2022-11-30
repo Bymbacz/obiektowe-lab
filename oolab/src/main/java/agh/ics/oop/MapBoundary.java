@@ -19,8 +19,8 @@ public class MapBoundary implements IPositionChangeObserver{
     public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
         Iterator<IMapElement> itr = MyX.iterator();
         while (itr.hasNext()) {
-            if(itr.next().getPosition().equals(newPosition) && !itr.next().toString().equals("*")){
-                IMapElement object = itr.next();
+            IMapElement object = itr.next();
+            if(object.getPosition().equals(newPosition) && !object.toString().equals("*")){
                 MyX.remove(object);
                 MyY.remove(object);
                 MyX.add(object);

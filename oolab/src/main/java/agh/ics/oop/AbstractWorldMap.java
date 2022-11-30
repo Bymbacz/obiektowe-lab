@@ -17,7 +17,7 @@ abstract public class AbstractWorldMap implements IWorldMap,IPositionChangeObser
     public boolean isOccupied(Vector2d position){
         return animals.containsKey(position);
     }
-    public Object objectAt(Vector2d position){
+    public IMapElement objectAt(Vector2d position){
         return animals.get(position);
     }
     public abstract Vector2d getll();

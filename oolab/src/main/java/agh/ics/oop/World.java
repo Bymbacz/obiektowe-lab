@@ -8,8 +8,7 @@ import static java.lang.System.out;
 public class World {
     public static void main(String[] args) {
         try {
-            String[] s = {"f","b","r","l","f","f","r","r","f","f","f","f","f","f","f","f"};
-            Application.launch(App.class, s);
+            Application.launch(App.class, args);
         } catch(IllegalArgumentException ex) {
             out.println(ex.getMessage());
         }
